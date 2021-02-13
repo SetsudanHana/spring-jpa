@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+</head>
+<body class="container">
+<nav class="nav">
+    <a th:href="@{/todo}" class="nav-link">Back</a>
+    <a th:if="${todo.status.name() != 'NEW'}" th:href="@{/todo/{id}/move/NEW(id = ${todo.id})}" class="nav-link">Move to New</a>
+    <a th:if="${todo.status.name() != 'IN_PROGRESS'}" th:href="@{/todo/{id}/move/IN_PROGRESS(id = ${todo.id})}" class="nav-link">Move to In Progess</a>
+    <a th:if="${todo.status.name() != 'DONE'}" th:href="@{/todo/{id}/move/DONE(id = ${todo.id})}" class="nav-link">Move to In Done</a>
+    <a th:href="@{/todo/{id}/edit(id = ${todo.id})}" class="nav-link">Edit</a>
+    <a th:href="@{/todo/{id}/delete(id = ${todo.id})}" class="nav-link">Delete</a>
+</nav>
+<div class="row">
+    <h3>Name</h3>
+    <p th:text="${todo.name}"></p>
+    <h3>Description</h3>
+    <p th:text="${todo.description}"></p>
+    <div class="col-2">
+        Status:
+    </div>
+    <div class="col-10" th:text="${todo.status}">
+    </div>
+    <div class="col-2">
+        Due Date:
+    </div>
+    <div class="col-10" th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}">
+    </div>
+</div>
+</body>
+</html>
